@@ -1,0 +1,64 @@
+#include <stdio.h>
+#define SIZE 5
+int arr[SIZE];
+
+void init() {
+    for (int i = 0; i < SIZE; i++) {
+        arr[i] = -1;
+    }
+}
+
+void insert(int key) {
+    int index = key % SIZE;
+    int start = index;
+
+    while (arr[index] != -1) {
+        index = (index + 1) % SIZE;
+        if (index == start) {
+            printf("Hash table overflow, cannot insert %d\n", key);
+            return;
+        }
+    }
+
+    arr[index] = key;
+    printf("%d inserted at location %d\n", key, index);
+}
+
+void display() {
+    for (int i = 0; i < SIZE; i++) {
+        printf("HT[%d] = %d\n", i, arr[i]);
+    }
+}
+
+int main() {
+    int choice, key;
+
+    init();
+
+    printf("\nHash Table Operations\n");
+    printf("1. Insert\n");
+    printf("2. Display\n");
+    printf("3. Exit\n");
+
+    while (1) {
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1:
+                printf("Enter key to insert: ");
+                scanf("%d", &key);
+                insert(key);
+                break;
+
+            case 2:
+                display();
+                break;
+
+            case 3:
+                return 0;
+
+            default:
+                printf("Invalid choice\n");
+        }
+    }
+}
